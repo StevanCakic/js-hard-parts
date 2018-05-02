@@ -1,2 +1,2 @@
-# Ex1_Callbacks_and_Higher-Order_Functions
-Completed Exercises from http://csbin.io/callbacks - JS hard parts (frontendmasters)
+# This repo contains completed challanges from js hard parts course from frontendmasters
+1. Callbacks and Higher-Order Functions contains set of tasks from http://csbin.io/callbacks
