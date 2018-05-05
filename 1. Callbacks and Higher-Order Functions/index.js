@@ -1,4 +1,4 @@
-// Type JavaScript here and click "Run Code" or press Ctrl + s
+// http://csbin.io/callbacks
 console.log("Hello, world!");
 
 // Challenge 1
