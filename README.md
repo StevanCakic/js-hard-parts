@@ -6,4 +6,4 @@
 3. Async contains set of completed tasks from http://csbin.io/async
 
 
-Note: For practise first try to complete challegnes from the above links by yourself, don't look immediately solutions  
+Note: For practise first try to complete challenges from the above links by yourself, don't look immediately solutions  
