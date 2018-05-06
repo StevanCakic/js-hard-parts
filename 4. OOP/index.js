@@ -87,9 +87,19 @@ personStore.introduce = function() {
 ****************************************************************/
 
 /*** CHALLENGE 1 of 3 ***/
+/**
+ * Create a function PersonConstructor that uses the this keyword to save
+ * a single property onto its scope called greet. greet should be a function that logs
+ * the string 'hello'
+ */
 
 function PersonConstructor() {
-  // add code here
+  this.greet = function() {
+    console.log("hello");
+  };
+  this.introduce = function() {
+    console.log("Hi, my name is " + this.name);
+  };
 }
 
 // /********* Uncomment this line to test your work! *********/
@@ -97,9 +107,17 @@ var simon = new PersonConstructor();
 // simon.greet(); // -> Logs 'hello'
 
 /*** CHALLENGE 2 of 3 ***/
+/**
+ * personFromConstructor that takes as input a name and an age.
+ * When called, the function will create person objects using the new keyword
+ * instead of the Object.create method.
+ */
 
 function personFromConstructor(name, age) {
-  // add code here
+  let person = new PersonConstructor();
+  person.name = name;
+  person.age = age;
+  return person;
 }
 
 var mike = personFromConstructor("Mike", 30);
@@ -110,7 +128,11 @@ var mike = personFromConstructor("Mike", 30);
 // mike.greet(); //-> Logs 'hello'
 
 /*** CHALLENGE 3 of 3 ***/
-// add code here
+/**
+ * Without editing the code you've already written, add an introduce
+ * method to the PersonConstructor function that logs
+ * "Hi, my name is [name]"
+ */
 
 // mike.introduce(); // -> Logs 'Hi, my name is Mike'
 
@@ -118,26 +140,50 @@ var mike = personFromConstructor("Mike", 30);
                         USING ES6 CLASSES
 ****************************************************************/
 
-/*** CHALLENGE 1 of 3 ***/
+/*** CHALLENGE 1 of 2 ***/
+/**
+ * Create a class PersonClass.
+ * PersonClass should have a constructor that is passed an input
+ * of name and saves it to a property by the same name.
+ * PersonClass should also have a method called greet
+ * that logs the string 'hello'.
+ */
 
 class PersonClass {
-  constructor() {
-    // add code here
+  constructor(name) {
+    this.name = name;
   }
 
-  // add code here
+  greet() {
+    console.log("hello");
+  }
 }
 
 // /********* Uncomment this line to test your work! *********/
 var george = new PersonClass();
 // george.greet(); // -> Logs 'hello'
 
-/*** CHALLENGE 2 of 3 ***/
+/*** CHALLENGE 2 of 2 ***/
+/**
+ * Create a class DeveloperClass that creates objects by extending
+ * the PersonClass class.
+ * In addition to having a name property and greet method,
+ * DeveloperClass should have an introduce method.
+ * When called, introduce should log the string
+ * 'Hello World, my name is [name]'.
+ */
 
-// add code here
+class DeveloperClass extends PersonClass {
+  constructor(name) {
+    super(name);
+  }
+  introduce() {
+    console.log("Hello World, my name is " + this.name);
+  }
+}
 
 // /********* Uncomment these lines to test your work! *********/
-// var thai = new DeveloperClass('Thai', 32);
+var thai = new DeveloperClass("Thai", 32);
 // console.log(thai.name); // -> Logs 'Thai'
 // thai.introduce(); //-> Logs 'Hello World, my name is Thai'
 
@@ -159,16 +205,70 @@ function userFactory(name, score) {
   return user;
 }
 
-var adminFunctionStore /* Put code here */;
+/** Challenge 1 */
+/**
+ * Create an object adminFunctionStore that has access to all methods
+ * in the userFunctionStore object, without copying them over individually.
+ */
+
+/** Challenge 5 */
+/**
+ * Created a method called sharePublicMessage that logs 'Welcome users!'
+ * and will be available to adminFactory objects,
+ * but not userFactory objects.
+ * Do not add this method directly in the adminFactory function.
+ */
+
+var adminFunctionStore = Object.create(userFunctionStore, {
+  sharePublicMessage: {
+    value: function() {
+      console.log("Welcome users!");
+    }
+  }
+});
+
+/** Challenge 2 */
+/**
+ * Create an adminFactory function that creates an object
+ * with all the same data fields (and default values) as objects
+ * of the userFactory class, but without copying each data field individually.
+ */
 
 function adminFactory(name, score) {
-  // Put code here
+  let adminDefault = userFactory.call(this, name, score);
+  let admin = Object.create(adminFunctionStore, {
+    name: {
+      value: name
+    },
+    score: {
+      value: score
+    }
+  });
+
+  /** Challenge 3 */
+  /**
+   * Then make sure the value of the 'type' field for adminFactory
+   * objects is 'Admin' instead of 'User'.
+   */
+
+  admin.type = "Admin";
+
+  return admin;
 }
 
-/* Put code here for a method called sharePublicMessage*/
+/** Challenge 4 */
+/**
+ * Make sure that adminFactory objects have access to adminFunctionStore
+ * methods, without copying them over.
+ */
 
-var adminFromFactory = adminFactory("Eva", 5);
+var user = userFactory("Steve", 10);
+var admin = adminFactory("Eva", 5);
+
+console.log(admin);
+console.log(user);
 
 // /********* Uncomment these lines to test your work! *********/
-// adminFromFactory.sayType() // -> Logs "I am a Admin"
-// adminFromFactory.sharePublicMessage() // -> Logs "Welcome users!"
+admin.sayType(); // -> Logs "I am a Admin"
+user.sayType(); // -> Logs "I am a User"
+admin.sharePublicMessage(); // -> Logs "Welcome users!"
