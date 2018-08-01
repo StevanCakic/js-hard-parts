@@ -171,11 +171,10 @@ function valueAndPrevIndex(array) {
   let i = 0;
   return {
     sentence: function() {
-      if (i === 0) {
-        i++;
+      i++;
+      if (i === 1) {
         return "that is the first element";
       }
-      i++;
       return `${array[i - 1]} was found after index ${i - 2}`;
     }
   };
@@ -192,9 +191,17 @@ console.log(returnedSentence.sentence());
     Do not use any type of loop constructor and only make the call to createConversation once.  
  */
 
-function* createConversation(string) {}
+function* createConversation(str) {
+  yield setInterval(function () {
+    if(str == "english") {
+      console.log("hello there");
+    } else{
+      console.log("gibberish")
+    }
+  }, 3000);
+}
 
-console.log(createConversation("english").next());
+createConversation("english").next();
 
 //CHALLENGE 9
 /**
