@@ -192,11 +192,11 @@ console.log(returnedSentence.sentence());
  */
 
 function* createConversation(str) {
-  yield setInterval(function () {
-    if(str == "english") {
+  yield setInterval(function() {
+    if (str == "english") {
       console.log("hello there");
-    } else{
-      console.log("gibberish")
+    } else {
+      console.log("gibberish");
     }
   }, 3000);
 }
@@ -209,8 +209,16 @@ createConversation("english").next();
  * concatenates it with a hard coded verb and returns it to the async function to be console.logged after a duration of 3 seconds.
  * Call the async function only once, feeding it a noun to make this happen
  */
-function waitForVerb(noun) {}
+function waitForVerb(noun) {
+  const verb = "play";
+  return new Promise((resolve, reject) => {
+    setTimeout(() => resolve(noun + " " + verb), 3000);
+  })
+}
 
-async function f(noun) {}
+async function f(noun) {
+  const data = await waitForVerb(noun);
+  console.log(data);
+}
 
 f("dog");
