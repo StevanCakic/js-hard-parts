@@ -48,11 +48,15 @@ function nextIterator(arr) {
   // YOUR CODE HERE
   let i = 0;
   return {
-    next: function() {
+    next: function () {
       let elem = arr[i];
       i++;
       return elem;
-    }
+    },
+    current: function () {
+      if (i >= arr.length) return null;
+      return arr[i];
+    },
   };
 }
 
@@ -73,7 +77,7 @@ function sumArray(arr) {
   // use your nextIterator function
   let sum = 0;
   const iterate = nextIterator(arr);
-  for (let i = 0; i < arr.length; i++) {
+  while (iterate.current() !== null) {
     sum += iterate.next();
   }
   return sum;
